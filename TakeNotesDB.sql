@@ -1,14 +1,14 @@
 # --------------------------------------------
 # SQL script to create and populate the tables
-# for the CloudDrive Database (CloudDriveDB)
-# Created by Osman Balci
+# for the TakeNote Database (TakeNoteDB)
+# Created by Thomas Nguyen
 # --------------------------------------------
 
 /*
 Tables to be dropped must be listed in a logical order based on dependency.
 UserFile and UserPhoto depend on User. Therefore, they must be dropped before User.
 */
-DROP TABLE IF EXISTS Notes, ContactList, Activity, UserFile, UserPhoto, User;
+DROP TABLE IF EXISTS Notes, ContactConnections, Activity, UserFile, UserPhoto, User;
 
 /* The User table contains attributes of interest of a User. */
 CREATE TABLE User
