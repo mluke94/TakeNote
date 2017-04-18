@@ -1,7 +1,9 @@
-package entityclasses;
+package jsfclasses;
 
-import entityclasses.util.JsfUtil;
-import entityclasses.util.JsfUtil.PersistAction;
+import entityclasses.User;
+import jsfclasses.util.JsfUtil;
+import jsfclasses.util.JsfUtil.PersistAction;
+import sessionbeans.UserFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("activityController")
+@Named("userController")
 @SessionScoped
-public class ActivityController implements Serializable {
+public class UserController implements Serializable {
 
     @EJB
-    private entityclasses.ActivityFacade ejbFacade;
-    private List<Activity> items = null;
-    private Activity selected;
+    private sessionbeans.UserFacade ejbFacade;
+    private List<User> items = null;
+    private User selected;
 
-    public ActivityController() {
+    public UserController() {
     }
 
-    public Activity getSelected() {
+    public User getSelected() {
         return selected;
     }
 
-    public void setSelected(Activity selected) {
+    public void setSelected(User selected) {
         this.selected = selected;
     }
 
@@ -43,36 +45,36 @@ public class ActivityController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private ActivityFacade getFacade() {
+    private UserFacade getFacade() {
         return ejbFacade;
     }
 
-    public Activity prepareCreate() {
-        selected = new Activity();
+    public User prepareCreate() {
+        selected = new User();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ActivityCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ActivityUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UserUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ActivityDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UserDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Activity> getItems() {
+    public List<User> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -107,29 +109,29 @@ public class ActivityController implements Serializable {
         }
     }
 
-    public Activity getActivity(java.lang.Integer id) {
+    public User getUser(java.lang.Integer id) {
         return getFacade().find(id);
     }
 
-    public List<Activity> getItemsAvailableSelectMany() {
+    public List<User> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Activity> getItemsAvailableSelectOne() {
+    public List<User> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Activity.class)
-    public static class ActivityControllerConverter implements Converter {
+    @FacesConverter(forClass = User.class)
+    public static class UserControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ActivityController controller = (ActivityController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "activityController");
-            return controller.getActivity(getKey(value));
+            UserController controller = (UserController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "userController");
+            return controller.getUser(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -149,11 +151,11 @@ public class ActivityController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Activity) {
-                Activity o = (Activity) object;
+            if (object instanceof User) {
+                User o = (User) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Activity.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), User.class.getName()});
                 return null;
             }
         }

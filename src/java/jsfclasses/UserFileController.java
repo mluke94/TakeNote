@@ -1,7 +1,9 @@
-package entityclasses;
+package jsfclasses;
 
-import entityclasses.util.JsfUtil;
-import entityclasses.util.JsfUtil.PersistAction;
+import entityclasses.UserFile;
+import jsfclasses.util.JsfUtil;
+import jsfclasses.util.JsfUtil.PersistAction;
+import sessionbeans.UserFileFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -22,7 +24,7 @@ import javax.faces.convert.FacesConverter;
 public class UserFileController implements Serializable {
 
     @EJB
-    private entityclasses.UserFileFacade ejbFacade;
+    private sessionbeans.UserFileFacade ejbFacade;
     private List<UserFile> items = null;
     private UserFile selected;
 

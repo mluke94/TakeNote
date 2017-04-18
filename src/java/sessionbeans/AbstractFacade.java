@@ -2,7 +2,7 @@
  * Created by Luke Mazzu on 2017.04.18  * 
  * Copyright © 2017 Luke Mazzu. All rights reserved. * 
  */
-package entityclasses;
+package sessionbeans;
 
 import java.util.List;
 import javax.persistence.EntityManager;
