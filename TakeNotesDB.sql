@@ -8,6 +8,7 @@
 Tables to be dropped must be listed in a logical order based on dependency.
 UserFile and UserPhoto depend on User. Therefore, they must be dropped before User.
 */
+
 DROP TABLE IF EXISTS Notes, ContactConnections, Activity, UserFile, UserPhoto, User;
 
 /* The User table contains attributes of interest of a User. */
@@ -51,7 +52,7 @@ CREATE TABLE Notes
 	user_id INT UNSIGNED,
 	created_time DATETIME NOT NULL, /* Save original creation datetime*/
 	modified_time DATETIME NOT NULL, /* for edit datetime format 'yyyy-MM-dd HH:mm:ss', defaulted to creation time if note was just created */
-	content TEXT DEFAULT '',
+	content TEXT,
 	FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
 );
 /* Table that stores user activities when a note is created, edited, or deleted*/
@@ -71,5 +72,5 @@ CREATE TABLE UserFile
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	filename VARCHAR (256) NOT NULL,
 	note_id INT UNSIGNED,
-	FOREIGN KEY (note_id) REFERENCES Notes(id) ON DELETE CASCADE,
+	FOREIGN KEY (note_id) REFERENCES Notes(id) ON DELETE CASCADE
 );
